@@ -19,6 +19,9 @@ object chessData {
     // Μεταβλητή για αποθήκευση των ζευγαριών παικτών και των εμφανίσεών τους
     var playerPairsCount = Map.empty[String, Int]
 
+    // Μεταβλητή για αποθήκευση των κινήσεων και των εμφανίσεών τους
+    var moves = Map.empty[String, Int]
+
     // Διαπέραση του αρχείου
     while (scanner.hasNextLine) {
       // Διαπέραση της κάθε γραμμής
@@ -30,7 +33,7 @@ object chessData {
       /**********************************************************/
       // Α' ερώτημα
 
-      // Ταξινόμηση των πεδίων 8 και 10 αλφαβητικά
+      // Ταξινόμηση των πεδίων 8 και 10 αλφαβητικά (η ταξινόμηση γίνεται ανα γραμμή)
       val sortedData = Array(data(8), data(10)).sorted
 
       // Σχηματισμός του ζευγαριού παικτών
@@ -42,21 +45,39 @@ object chessData {
       /**********************************************************/
       // Β' ερώτημα
 
+      // Αποθήκευση των κινήσεων σε πίνακα
+      val movesPerLine = data(12).split(" ")
+
+      // Διαπέραση του array και αύξηση της μετρητή για κάθε κίνηση
+      for (move <- movesPerLine) {
+        moves += (move -> (moves.getOrElse(move, 0) + 1))
+      }
+
+
     }
     // Α' ερώτημα
     // Εύρεση των ζευγαριών παικτών που έχουν παιχτεί πάνω από 5 φορές
     val frequentPlayerPairs = playerPairsCount.filter(_._2 > 5)
 
 
-
-
-
-
     // Α' ερώτημα
     // Εκτύπωση των αποτελεσμάτων
+    println("Ερώτημα Α'\n")
     frequentPlayerPairs.foreach { case (pair, count) =>
       println(pair + "," + count)
     }
+
+    // Β' ερώτημα
+    // Εύρεση των 5 πιο κοινών κινήσεων
+    val top5Moves = moves.toList.sortBy(-_._2).take(5)
+
+    // Εκτύπωση των 5 πιο κοινών κινήσεων
+    println("\n\nΕρώτημα B'\n")
+    println("Οι 5 πιο κοινές κινήσεις:")
+    top5Moves.foreach { case (move, count) =>
+      println(s"$move,$count")
+    }
+
 
     // Κλείσιμο του αρχείου
     scanner.close()
