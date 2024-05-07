@@ -33,7 +33,8 @@ object chessData {
       /**********************************************************/
       // Α' ερώτημα
 
-      // Ταξινόμηση των πεδίων 8 και 10 αλφαβητικά (η ταξινόμηση γίνεται ανα γραμμή)
+      /* Ταξινόμηση των πεδίων 8 (white player ID) και 10 (black player ID) αλφαβητικά (η ταξινόμηση γίνεται ανα γραμμή) ώστε π.χ. το ζευγάς Α,Β και το
+      ζεύγος Β,Α που είναι ίδια, να αναπαρασταθούν ως Α,Β */
       val sortedData = Array(data(8), data(10)).sorted
 
       // Σχηματισμός του ζευγαριού παικτών
@@ -59,8 +60,6 @@ object chessData {
     // Εύρεση των ζευγαριών παικτών που έχουν παιχτεί πάνω από 5 φορές
     val frequentPlayerPairs = playerPairsCount.filter(_._2 > 5)
 
-
-    // Α' ερώτημα
     // Εκτύπωση των αποτελεσμάτων
     println("Ερώτημα Α'\n")
     frequentPlayerPairs.foreach { case (pair, count) =>
@@ -77,7 +76,6 @@ object chessData {
     top5Moves.foreach { case (move, count) =>
       println(s"$move,$count")
     }
-
 
     // Κλείσιμο του αρχείου
     scanner.close()
