@@ -53,9 +53,8 @@ object chessData {
       for (move <- movesPerLine) {
         moves += (move -> (moves.getOrElse(move, 0) + 1))
       }
+    }// Τέλος while loop
 
-
-    }
     // Α' ερώτημα
     // Εύρεση των ζευγαριών παικτών που έχουν παιχτεί πάνω από 5 φορές
     val frequentPlayerPairs = playerPairsCount.filter(_._2 > 5)
@@ -77,7 +76,7 @@ object chessData {
       println(s"$move,$count")
     }
 
-    // Κλείσιμο του αρχείου
+    // Κλείσιμο του Scanner
     scanner.close()
   }
 }
